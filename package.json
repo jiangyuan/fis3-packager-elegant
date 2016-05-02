@@ -1,0 +1,27 @@
+{
+  "name": "fis3-packager-elegant",
+  "version": "0.0.1",
+  "description": "一种基于 fis3 的优雅的、智能的前端资源打包方案",
+  "keywords": [
+    "lego",
+    "fis",
+    "fis3",
+    "fis3-packager"
+  ],
+  "main": "index.js",
+  "script": {
+    "test": "mocha test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiangyuan/fis3-packager-elegant"
+  },
+  "author": {
+    "name": "jerojiang"
+  },
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/jiangyuan/fis3-packager-elegant/issues"
+  },
+  "homepage": "https://github.com/jiangyuan/fis3-packager-elegant"
+}
