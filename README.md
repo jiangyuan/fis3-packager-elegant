@@ -3,3 +3,4 @@
 
 - [ ] 自动分包、打包 js 和 css
 - [ ] 内置 uglify 压缩，控制 sourceMap
+- [ ] 演示 git
