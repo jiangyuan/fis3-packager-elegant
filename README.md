@@ -4,4 +4,3 @@
 - [ ] 调试模式、发布模式
 - [ ] 自动分包、打包 js 和 css
 - [ ] 内置 uglify 压缩，控制 sourceMap
-- [ ] 我要用 vim
