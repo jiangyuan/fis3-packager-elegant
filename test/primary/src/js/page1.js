@@ -5,3 +5,6 @@ var page1Module2 = require('./page1_module2');
 
 console.log(baseModule1, baseModule2);
 console.log(page1Module1, page1Module2);
+
+
+require(['./page1_module_async1']);
