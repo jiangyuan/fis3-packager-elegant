@@ -35,9 +35,12 @@ describe('primary', () => {
       .match('::package', {
         packager: self
       })
-      // .match('**.js', {
-      //   isMod: true
-      // })
+      .match('**.js', {
+        isMod: true
+      })
+      .match('**nowrap**.js', {
+        isMod: false
+      })
       .match('*', {
         deploy: fis.plugin('local-deliver', {
           to: dev

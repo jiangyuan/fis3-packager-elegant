@@ -4,41 +4,51 @@
  * @date 2016-08-19
  */
 
+/* global fis */
+
 import Page from './page';
 
 
 export default class Project {
-  htmlFilePkg = {
-    // page1: [ {'js/base': {type: 'sync', deps: ['baba']}}, {'js/page1': {type: 'async', deps: ['baba']}} ] // 严格按照顺序？
-  }; // 所有 html 文件，包含递归的依赖信息
+  pages = {};
   pkg = {
     async: {},
     sync: {}
   }; // 整个项目将要打的包
   jsModule = {}; // 整个项目的 js 模块
 
-  constructor(files, retMap, settings) {
-    // this.allFiles = files;
-    this.files = files;
+  /**
+   * @class Project
+   * @param retMap  fis 中的 ret
+   * @param config  插件配置
+   */
+  constructor(retMap, config) {
+    this.files = retMap.src;
     this.retMap = retMap;
-    this.settings = settings;
+    this.config = config;
 
     this.filterFile();
-    this.setPkg();
+    // this.setPkg();
+    console.log(this.jsModule, this.pages, this);
   }
 
+  /**
+   * 过滤出 html 文件，以 html 文件的依赖做为分包根据
+   */
   filterFile() {
-    Object.keys(this.files).forEach((subpath) => {
-      const file = this.files[subpath];
+    const { pages, files } = this;
 
-      if (file.isHtmlLike && !file.elegantPage) {
-        file.elegantPage = new Page(file, this.retMap, this.settings, this);
+    Object.keys(files).forEach((subpath) => {
+      const file = files[subpath];
+
+      if (file.isHtmlLike && !pages[file.id]) {
+        pages[file.id] = file.elegantPage = new Page(file, this);
       }
     });
   }
 
-  setPkg(id, value) {
-    this.htmlFilePkg[id] = value;
+  setPkg() {
+
   }
 
   addPkg(type, id, file) {
@@ -49,13 +59,17 @@ export default class Project {
     }
   }
 
-  addHtmlFile() {
+  addJsModule(id, type, file) {
+    const { ids } = this.retMap;
+    const mod = this.jsModule[id];
 
-  }
-
-  addJsModule(id, file) {
-    if (id && file && !this.jsModule[id]) {
-      this.jsModule[id] = file;
+    file = file || ids[id];
+    // 如果一个模块即被异步依赖，又被同步依赖，算同步依赖
+    if (id && file && (!mod || (mod && mod.type === 'async'))) {
+      this.jsModule[id] = {
+        type,
+        file
+      };
     }
   }
 }

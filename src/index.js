@@ -18,8 +18,8 @@ const CONFIG = {
   // 资源占位符
   resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
 
-  // 自动打包资源
-  autoPack: false,
+  // 开发环境还是生产环境
+  env: 'dev', // dev || dist
 
   ignore: [], // 不打包的模块
 
@@ -31,6 +31,12 @@ const CONFIG = {
   cssInline: false,
   // 所有同步js打包成一个文件
   jsAllInOne: false
+
+  // 手动干预
+  // pkg: {
+  //   '/pkg/common.js': 'mod.main**.js',
+  //   '/pkg/common.css': ['**.css']
+  // }
 };
 
 export default (ret, pack, settings) => {
@@ -38,6 +44,6 @@ export default (ret, pack, settings) => {
   const conf = _.assign({}, CONFIG, settings);
 
   if (files) {
-    new Project(files, ret, conf, pack); // eslint-disable-line
+    new Project(ret, conf, pack); // eslint-disable-line
   }
 };
